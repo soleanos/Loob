@@ -2,26 +2,32 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope,apiRiot) {
 
-  $scope.player ={};
-  $scope.player.name = "Anthony";
- // var data = apiRiot.get();
-  //$scope.info = data.name;
-  //console.log(data);
+  $scope.searchPlayer = function(playerToFind) {
 
-  apiRiot.get().then(function( playerList ) {
+    playerToFind = playerToFind.replace(' ', '');
 
-    var yolo = Object.keys(playerList)[0];
+    if (playerToFind != "") {
+      apiRiot.get(playerToFind).then(function (playerList) {
 
+        console.log("une requete est envoyé a l'API DE RIOT !!!!")
+        
+        $scope.$watch('scope.playerToFind', function () {
+          console.log(playerToFind);
+        });
 
-    //console.log(playerList.(Object.keys(playerList)[0]));
-    console.log(yolo);
-    // console.log(playerList.yolo);
-    // console.log(Object.keys(playerList)[0]);
-    // playerList.forEach(function(element) {
-    //     console.log(element.name);
-    // });
+        for (var propName in playerList) {
+          if (playerList.hasOwnProperty(propName)) {
+            var player = playerList[propName];
+            if(player){$scope.showPlayer = true}else{$scope.showPlayer = false}
+            $scope.player = player;
+          }
+        }
 
-  });
+      });
+    }else{
+      $scope.showPlayer = false;
+    }
+  }
 
 })
 

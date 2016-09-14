@@ -2,7 +2,26 @@
   <ion-content class="padding">
     <label class="item item-input">
       <span class="input-label">Nom du joueur</span>
-      <input type="text" ng-model="player.name">
+      <input type="text" ng-model="playerToFind" ng-model-options="{debounce: 1000} " ng-change="searchPlayer(playerToFind)">
     </label>
+
+    <div ng-show="showPlayer" class="list card">
+
+      <div class="item item-avatar">
+        <img src="http://ddragon.leagueoflegends.com/cdn/6.18.1/img/profileicon/{{player.profileIconId}}.png">
+        <h2>{{player.name}}</h2>
+        <p>Niveau : {{player.summonerLevel}}</p>
+      </div>
+
+      <div class="item item-body">
+        <!--<img class="full-image" src="http://loremflickr.com/320/240/">-->
+        <p>
+          Ici les infos sur le joueur
+        </p>
+
+      </div>
+
+    </div>
+
   </ion-content>
 </ion-view>

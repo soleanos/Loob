@@ -49,29 +49,21 @@ angular.module('starter.services', []).factory('Chats', function() {
 
 .factory('apiRiot', function($http) {
 
-  var key = "RGAPI-ECC57D56-BF35-4337-803B-5F299944F584"
-  var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/RiotSchmick?api_key=" + key;
+   var getRiotApiData = function (player) {
 
-  var infos = {};
+    console.log(player);
+    var key = "RGAPI-ECC57D56-BF35-4337-803B-5F299944F584"
+    var url = "https://euw.api.pvp.net/api/lol/euw/v1.4/summoner/by-name/"+player+"?api_key=" + key;
 
-
-
-
-
-  //console.log(load());
-
-
-
-  // console.log(getFromApi().then(function(response){console.log(response)}));
+    var promise = $http.get(url).then(function(response){
+      return response.data;
+    }, function(err){
+      return err;
+    });
+    return promise;
+  }
 
   return {
-    get: function load() {
-      var promise =   $http.get(url).then(function(response){
-        return response.data;
-      }, function(err){
-        return err;
-      });
-      return promise;
-    }
+    get: getRiotApiData
   };
 });
