@@ -1,6 +1,4 @@
-angular.module('starter.services', [])
-
-.factory('Chats', function() {
+angular.module('starter.services', []).factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -45,6 +43,35 @@ angular.module('starter.services', [])
         }
       }
       return null;
+    }
+  };
+})
+
+.factory('apiRiot', function($http) {
+
+  var key = "RGAPI-ECC57D56-BF35-4337-803B-5F299944F584"
+  var url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/RiotSchmick?api_key=" + key;
+
+  var infos = {};
+
+
+
+
+
+  //console.log(load());
+
+
+
+  // console.log(getFromApi().then(function(response){console.log(response)}));
+
+  return {
+    get: function load() {
+      var promise =   $http.get(url).then(function(response){
+        return response.data;
+      }, function(err){
+        return err;
+      });
+      return promise;
     }
   };
 });
