@@ -15,9 +15,22 @@
 
       <div class="item item-body">
         <!--<img class="full-image" src="http://loremflickr.com/320/240/">-->
-        <p>
-          Ici les infos sur le joueur
-        </p>
+
+          <div class="row">
+            <div class="col">Nb victoire : </div> <div class="col">{{generalPlayerInfo.wins}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Nb d'énnemies tués : </div> <div class="col">{{playerInfoRanked.totalMinionKills}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Nb de tours détruite : </div> <div class="col">{{playerInfoRanked.totalTurretsKilled}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Nb de monstre de jungle tués : </div> <div class="col">{{playerInfoRanked.totalNeutralMinionsKilled}}</div>
+          </div>
+          <div class="row">
+            <div class="col">Nb d'assistances : </div> <div class="col">{{playerInfoRanked.totalAssists}}</div>
+          </div>
 
       </div>
 

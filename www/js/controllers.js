@@ -7,19 +7,28 @@ angular.module('starter.controllers', [])
     playerToFind = playerToFind.replace(' ', '');
 
     if (playerToFind != "") {
-      apiRiot.get(playerToFind).then(function (playerList) {
+      apiRiot.get(playerToFind).then(function (playerArrayInfo) {
 
         console.log("une requete est envoyé a l'API DE RIOT !!!!")
-        
+        // console.log(playerList)
         $scope.$watch('scope.playerToFind', function () {
           console.log(playerToFind);
         });
 
-        for (var propName in playerList) {
-          if (playerList.hasOwnProperty(propName)) {
-            var player = playerList[propName];
+        var basicPlayerInfo = playerArrayInfo[0];
+
+        // console.log(playerArrayInfo[1][7])
+        // console.log(playerArrayInfo[1][7].aggregatedStats)
+
+        $scope.generalPlayerInfo = playerArrayInfo[1][7];
+        $scope.playerInfoRanked = playerArrayInfo[1][7].aggregatedStats;
+
+        for (var propName in basicPlayerInfo) {
+          if (basicPlayerInfo.hasOwnProperty(propName)) {
+            var player = basicPlayerInfo[propName];
             if(player){$scope.showPlayer = true}else{$scope.showPlayer = false}
             $scope.player = player;
+            console.log(player);
           }
         }
 

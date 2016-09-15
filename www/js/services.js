@@ -49,18 +49,52 @@ angular.module('starter.services', []).factory('Chats', function() {
 
 .factory('apiRiot', function($http) {
 
-   var getRiotApiData = function (player) {
+    var getRiotApiData = function (player) {
 
-    console.log(player);
-    var key = "RGAPI-ECC57D56-BF35-4337-803B-5F299944F584"
-    var url = "https://euw.api.pvp.net/api/lol/euw/v1.4/summoner/by-name/"+player+"?api_key=" + key;
+        console.log(player);
+        var key = "RGAPI-ECC57D56-BF35-4337-803B-5F299944F584";
+        var url = "https://euw.api.pvp.net/api/lol/euw/v1.4/summoner/by-name/"+player+"?api_key=" + key;
 
-    var promise = $http.get(url).then(function(response){
-      return response.data;
-    }, function(err){
-      return err;
-    });
-    return promise;
+        var promise = $http.get(url).then(function(response){;
+            return response.data;
+        }, function(err){
+            return err;
+        });
+
+        var promise2 = promise.then(
+            function(playerList) {
+
+                for (var propName in playerList) {
+                    if (playerList.hasOwnProperty(propName)) {
+                        var player = playerList[propName];
+                    }
+                }
+
+                var url2 = "https://euw.api.pvp.net/api/lol/euw/v1.3/stats/by-summoner/"+player.id+"/summary?season=SEASON2016&api_key=" + key;
+
+                return $http.get(url2).then(function(response){
+                  // console.log(response.data.playerStatSummaries);
+                  return response.data.playerStatSummaries;
+                }, function(err){
+                    return err;
+                });
+
+            }
+        ).catch(function(err) {
+            console.log(err);
+        });
+
+       var tabPromise = [promise,promise2];
+
+        var megaGigaPromiseOfTheDeath = Promise.all(tabPromise).then(
+           function(values){
+            // console.log("values grosse promesse : ");
+            //  console.log(values);
+             return values;
+           }
+        );
+
+    return megaGigaPromiseOfTheDeath;
   }
 
   return {
